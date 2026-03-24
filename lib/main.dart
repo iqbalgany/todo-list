@@ -2,8 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/core/themes/colors.dart';
+import 'package:todo_list/data/remote_datasources/todo/todo_remote_datasource.dart';
 import 'package:todo_list/firebase_options.dart';
 import 'package:todo_list/presentations/cubits/auth/auth_cubit.dart';
+import 'package:todo_list/presentations/cubits/todo/todo_cubit.dart';
 import 'package:todo_list/routing/app_router.dart';
 
 void main() async {
@@ -22,7 +24,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthCubit()),
-        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(
+          create: (context) => TodoCubit(TodoRemoteDatasource(uid: '')),
+        ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

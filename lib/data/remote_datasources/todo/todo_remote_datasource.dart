@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:todo_list/data/models/todo_model.dart';
 
 class TodoRemoteDatasource {
-  final String uid;
+  String uid;
   final _db = FirebaseFirestore.instance;
 
   TodoRemoteDatasource({required this.uid});

@@ -10,7 +10,10 @@ part 'todo_state.dart';
 class TodoCubit extends Cubit<TodoState> {
   final TodoRemoteDatasource _todo;
   StreamSubscription? _todoSubscription;
-  TodoCubit(this._todo) : super(const TodoState()) {
+  TodoCubit(this._todo) : super(const TodoState());
+
+  void updateUiandFetch(String newUid) {
+    _todo.uid = newUid;
     getTodos();
   }
 

@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:todo_list/data/remote_datasources/auth_remote_datasource.dart';
+import 'package:todo_list/data/remote_datasources/auth/auth_remote_datasource.dart';
 
 part 'auth_state.dart';
 
@@ -71,7 +72,11 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> signOut() async {
-    await _auth.signOut();
+    try {
+      await _auth.signOut();
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   @override
