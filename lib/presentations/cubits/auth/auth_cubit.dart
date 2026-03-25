@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -75,7 +74,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await _auth.signOut();
     } catch (e) {
-      log(e.toString());
+      throw Exception(e);
     }
   }
 

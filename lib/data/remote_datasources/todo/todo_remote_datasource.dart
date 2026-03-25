@@ -29,6 +29,9 @@ class TodoRemoteDatasource {
 
   // Create a todo
   Future<void> addTodo(String title, DateTime? dueDate) async {
+    if (uid.isEmpty) {
+      throw Exception('Gagal menambah data: User ID tidak ditemukan (Kosong)');
+    }
     try {
       await _todosRef.add(
         TodoModel(

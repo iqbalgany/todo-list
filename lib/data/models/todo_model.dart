@@ -7,12 +7,14 @@ class TodoModel {
   final bool isDone;
   final String userId;
   final DateTime dueDate;
+  final DateTime? createdAt;
   TodoModel({
     required this.id,
     required this.title,
     required this.isDone,
     required this.userId,
     required this.dueDate,
+    this.createdAt,
   });
 
   TodoModel copyWith({
@@ -21,6 +23,7 @@ class TodoModel {
     bool? isDone,
     String? userId,
     DateTime? dueDate,
+    DateTime? createdAt,
   }) {
     return TodoModel(
       id: id ?? this.id,
@@ -28,6 +31,7 @@ class TodoModel {
       isDone: isDone ?? this.isDone,
       userId: userId ?? this.userId,
       dueDate: dueDate ?? this.dueDate,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -37,6 +41,9 @@ class TodoModel {
       'isDone': isDone,
       'userId': userId,
       'dueDate': Timestamp.fromDate(dueDate),
+      'createdAt': createdAt != null
+          ? Timestamp.fromDate(createdAt!)
+          : FieldValue.serverTimestamp(),
     };
   }
 
@@ -47,6 +54,9 @@ class TodoModel {
       isDone: map['isDone'] as bool? ?? false,
       userId: map['userId'] as String? ?? '',
       dueDate: (map['dueDate'] as Timestamp).toDate(),
+      createdAt: map['createdAt'] != null
+          ? (map['createdAt'] as Timestamp).toDate()
+          : null,
     );
   }
 

@@ -13,6 +13,7 @@ class TodoCubit extends Cubit<TodoState> {
   TodoCubit(this._todo) : super(const TodoState());
 
   void updateUiandFetch(String newUid) {
+    if (newUid.isEmpty) return;
     _todo.uid = newUid;
     getTodos();
   }
@@ -40,6 +41,16 @@ class TodoCubit extends Cubit<TodoState> {
   Future<void> addTodo(String title, DateTime? dueDate) async {
     try {
       await _todo.addTodo(title, dueDate);
+    } catch (e) {
+      emit(
+        state.copyWith(status: TodoStatus.failure, errorMessage: e.toString()),
+      );
+    }
+  }
+
+  Future<void> editTodo(String id, String title, DateTime? dueDate) async {
+    try {
+      await _todo.updateTodo(id, title, dueDate);
     } catch (e) {
       emit(
         state.copyWith(status: TodoStatus.failure, errorMessage: e.toString()),
